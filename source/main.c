@@ -28,8 +28,9 @@ int main(int argc, char *argv[])
                 case SDL_MOUSEMOTION:
                     printf("benis\n");
                 case SDL_KEYDOWN:
-                    if (event.key.keysym.sym == SDLK_0) {
+                    if (event.key.keysym.sym == SDLK_a) {
                         SDL_RenderCopy(renderer, texture, NULL, NULL);
+                        printf("yo\n");
 
                     }
                 default:
