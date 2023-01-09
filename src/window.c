@@ -1,9 +1,9 @@
 #include "window.h"
 #include "SDL2/SDL.h"
 #include <SDL2/SDL_render.h>
-#include <SDL2/SDL_video.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include "draw.h"
 
 SDL_Window* window;
 SDL_Renderer* renderer;
@@ -13,14 +13,15 @@ SDL_Event event;
 #define WINH 720
 
 bool init(){
-    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 
-    window = SDL_CreateWindow("Game" VERSION,
+
+    window = SDL_CreateWindow("Game" VERSION_DEV,
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED,
                               WINW,
-                              WINW,
-                              SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+                              WINH,
+                              SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
     if (window == NULL) {
         printf("Window could not be created!\n", SDL_GetError());
     } else {
@@ -29,7 +30,7 @@ bool init(){
     if (renderer == NULL) {
         printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
     } else {
-        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 1);
     }
 
     bool running = true;
@@ -39,13 +40,14 @@ bool init(){
         case SDL_QUIT:
           running = false;
           break;
-        case SDL_MOUSEMOTION:
-          printf("benis\n");
+        /* case SDL_MOUSEMOTION: */
+        /*   printf("benis\n"); */
         default:
           break;
         }
       }
       SDL_RenderPresent(renderer);
+      SDL_RenderCopy(renderer, texture, NULL, NULL);
       SDL_RenderClear(renderer);
     }
 

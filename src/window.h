@@ -5,6 +5,7 @@
 #include <stdbool.h>
 
 #define VERSION " v0.0.1"
+#define VERSION_DEV " v0.0.x dev"
 
 bool init();
 void cleanup();
