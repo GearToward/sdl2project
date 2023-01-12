@@ -1,6 +1,10 @@
 #include "window.h"
 #include "SDL2/SDL.h"
-#include <SDL2/SDL_render.h>
+#include "SDL2/SDL_image.h"
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_gamecontroller.h>
+#include <SDL2/SDL_joystick.h>
+#include <SDL2/SDL_surface.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include "draw.h"
@@ -12,9 +16,14 @@ SDL_Event event;
 #define WINW 960
 #define WINH 720
 
-bool init(){
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+bool init(int argc, char const *argv[]){
+    SDL_Init(SDL_INIT_VIDEO);
 
+    SDL_Surface* surface;
+
+    SDL_Texture* texture;
+
+    IMG_Init(IMG_INIT_PNG);
 
     window = SDL_CreateWindow("Game" VERSION_DEV,
                               SDL_WINDOWPOS_UNDEFINED,
@@ -23,15 +32,13 @@ bool init(){
                               WINH,
                               SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
     if (window == NULL) {
-        printf("Window could not be created!\n", SDL_GetError());
+        printf("Window could not be created: %s\n", SDL_GetError());
     } else {
         renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     }
-    if (renderer == NULL) {
-        printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
-    } else {
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 1);
-    }
+
+    surface = IMG_Load("../assets/tenshi.png");
+    texture = SDL_CreateTextureFromSurface(renderer, surface);
 
     bool running = true;
     while (running) {
@@ -40,8 +47,6 @@ bool init(){
         case SDL_QUIT:
           running = false;
           break;
-        /* case SDL_MOUSEMOTION: */
-        /*   printf("benis\n"); */
         default:
           break;
         }
