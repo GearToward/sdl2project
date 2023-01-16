@@ -8,6 +8,7 @@ int main(int argc, char *argv[]){
     if(init() !=0){
         fprintf(stderr,"failed to init\n");
     } else {
+        GameLoop();
         fprintf(stderr,"init success\n");
     }
 
