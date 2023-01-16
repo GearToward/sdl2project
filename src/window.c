@@ -1,6 +1,7 @@
 #include "window.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include "draw.h"
 
@@ -9,15 +10,13 @@ SDL_Renderer* renderer;
 SDL_Event event;
 
 bool init(){
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
-
-    IMG_Init(IMG_INIT_PNG);
+    SDL_Init(SDL_INIT_VIDEO);
 
     window = SDL_CreateWindow("Game" VERSION_DEV,
                               SDL_WINDOWPOS_CENTERED,
                               SDL_WINDOWPOS_CENTERED,
                               WINWNH,
-                              SDL_WINDOW_OPENGL);
+                              SDL_WINDOW_SHOWN);
     if (window == NULL) {
         printf("Window could not be created: %s\n", SDL_GetError());
     } else {
@@ -25,6 +24,8 @@ bool init(){
     }
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+
+    return false;
 
 }
 

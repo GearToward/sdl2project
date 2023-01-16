@@ -10,6 +10,7 @@ add_executable (
     src/main.c
     src/window.c
     src/draw.c
+    src/Player.c
 )
 
 target_link_libraries(${PROJECT_NAME} SDL2 SDL2_image)
