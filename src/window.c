@@ -11,10 +11,6 @@ SDL_Event event;
 bool init(){
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 
-    SDL_Surface* surface;
-
-    SDL_Texture* texture;
-
     IMG_Init(IMG_INIT_PNG);
 
     window = SDL_CreateWindow("Game" VERSION_DEV,
@@ -28,10 +24,7 @@ bool init(){
         renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED);
     }
 
-    surface = IMG_Load("../assets/tenshi.png");
-    texture = SDL_CreateTextureFromSurface(renderer, surface);
-
-    SDL_FreeSurface(surface);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
 }
 
@@ -47,7 +40,6 @@ void GameLoop(){
         break;
       }
     }
-    SDL_RenderPresent(renderer);
     SDL_RenderPresent(renderer);
     SDL_RenderClear(renderer);
   }
